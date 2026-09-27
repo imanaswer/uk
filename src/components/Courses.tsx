@@ -42,9 +42,9 @@ export default function Courses() {
       <div className="wrap">
         <Reveal className="section-head">
           <div className="section-head__copy">
-            <div className="kicker">Professional courses</div>
-            <h2 className="h2">Built for the careers employers are hiring for now.</h2>
-            <p className="lead">Industry-recognised programmes with live projects, real tools and certification recognised across the G-TEC network.</p>
+            <div className="kicker kicker--coral">Professional courses</div>
+            <h2 className="h2" style={{ color: '#fff' }}>Built for the careers employers are hiring for now.</h2>
+            <p className="lead lead--light">Industry-recognised programmes with live projects, real tools and certification recognised across the G-TEC network.</p>
           </div>
           <div className="cats" role="tablist" aria-label="Filter courses">
             {CATS.map((c) => <button key={c} role="tab" aria-selected={c === cat} className={c === cat ? 'is-active' : ''} onClick={() => setCat(c)}>{c}</button>)}
@@ -53,18 +53,15 @@ export default function Courses() {
         <div ref={grid} className="course-grid">
           {list.map((c) => (
             <article key={c.slug} className="card" onMouseMove={tilt} onMouseLeave={untilt}>
-              <div className="card__media">
-                <Image src={c.img} alt="" fill sizes="(max-width: 700px) 100vw, 380px" />
+              <div className="card__header">
                 <span className="card__cat">{c.cat}</span>
-              </div>
-              <div className="card__body">
                 <h3 className="card__title">{c.title}</h3>
-                <p className="card__desc">{c.desc}</p>
-                <div className="card__meta"><span>{c.duration}</span><span>{c.level}</span></div>
-                <a href="#enquire" className="card__link" onClick={() => dispatchEvent(new CustomEvent('pick-course', { detail: c.title }))}>
-                  Enquire about this course <span aria-hidden>→</span>
-                </a>
               </div>
+              <p className="card__desc">{c.desc}</p>
+              <div className="card__meta"><span>{c.duration}</span><span>{c.level}</span></div>
+              <a href="#enquire" className="card__link" onClick={() => dispatchEvent(new CustomEvent('pick-course', { detail: c.title }))}>
+                Enquire about this course <span aria-hidden>→</span>
+              </a>
               <div className="card__glare" aria-hidden />
             </article>
           ))}

@@ -3,6 +3,7 @@ import type { ReactNode } from 'react';
 import { DM_Sans, Sora } from 'next/font/google';
 import { COURSES, SITE } from '@/lib/content';
 import './globals.css';
+import SmoothScroll from '@/components/SmoothScroll';
 
 const sora = Sora({ subsets: ['latin'], weight: ['400', '500', '600', '700', '800'], variable: '--font-sora', display: 'swap' });
 const dmSans = DM_Sans({ subsets: ['latin'], weight: ['400', '500', '600', '700'], variable: '--font-dm-sans', display: 'swap' });
@@ -40,6 +41,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en-GB" className={`${sora.variable} ${dmSans.variable}`}>
       <body>
+        <SmoothScroll />
         {children}
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, '\\u003c') }} />
       </body>
