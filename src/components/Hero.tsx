@@ -58,14 +58,14 @@ export default function Hero() {
   };
 
   return (
-    <section id="top" ref={section} className="hero" style={{ display: 'flex', flexDirection: 'column', position: 'relative', paddingTop: '120px', paddingBottom: '60px' }}>
+    <section id="top" ref={section} className="hero" style={{ display: 'flex', flexDirection: 'column', position: 'relative' }}>
       <NetworkBackground />
       <div className="hero__shade" style={{ background: 'radial-gradient(circle at center, rgba(0,34,79,0) 0%, rgba(0,34,79,0.95) 100%)', zIndex: 1, pointerEvents: 'none' }} />
       
       <div ref={content} className="wrap hero__content" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center', maxWidth: '1000px', zIndex: 10 }}>
-        <div className="hero__badge" style={{ marginBottom: '2rem' }}><span className="hero__new">NEW</span>Now in London · Wembley–Harrow Corridor</div>
+        <div className="hero__badge"><span className="hero__new">NEW</span><span className="badge-text">Now in London · Wembley–Harrow Corridor</span></div>
         
-        <h1 className="hero__title" ref={titleRef} style={{ fontSize: 'clamp(48px, 8vw, 100px)', lineHeight: 1.05, letterSpacing: '-0.04em', textWrap: 'balance', textShadow: '0 10px 30px rgba(0,0,0,0.5)' }}>
+        <h1 className="hero__title" ref={titleRef}>
           <span className="char-reveal" style={{ display: 'inline-block' }}>The</span>{' '}
           <span className="char-reveal" style={{ display: 'inline-block' }}>world&apos;s</span>{' '}
           <span className="char-reveal" style={{ display: 'inline-block' }}>largest</span>{' '}
@@ -88,7 +88,7 @@ export default function Hero() {
       </div>
       
       <div style={{ width: '100%', display: 'flex', justifyContent: 'center', zIndex: 10, marginTop: '40px' }}>
-        <dl className="hero__stats" style={{ display: 'flex', gap: '60px', borderTop: 'none', padding: 0, margin: 0, background: 'rgba(255,255,255,0.08)', backdropFilter: 'blur(20px)', padding: '24px 48px', borderRadius: '100px', border: '1px solid rgba(255,255,255,0.15)' }}>
+        <dl className="hero__stats">
           {STATS.slice(0, 3).map((s, i) => (
             <div key={s.label} style={{ textAlign: 'center' }}><dd className="stat__v" style={{ fontSize: '32px', color: '#fff' }}>{s.format(counts[i])}</dd><dt className="stat__l" style={{ color: 'rgba(255,255,255,0.8)' }}>{s.label}</dt></div>
           ))}
