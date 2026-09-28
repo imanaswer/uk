@@ -1,5 +1,5 @@
 'use client';
-import { useCallback, useRef } from 'react';
+import { useCallback, useEffect, useRef } from 'react';
 import Image from 'next/image';
 import { SCENES } from '@/lib/content';
 import { clamp01, smooth, useScrollFrame } from '@/lib/motion';
@@ -7,13 +7,78 @@ import { clamp01, smooth, useScrollFrame } from '@/lib/motion';
 /** Sticky image frame cross-fades between scenes as the steps scroll past. */
 export default function Journey() {
   const root = useRef<HTMLElement>(null);
+  const autoP = useRef(0);
+  
+  useEffect(() => {
+    let frame: number;
+    let lastTime = performance.now();
+    
+    const loop = (time: number) => {
+      frame = requestAnimationFrame(loop);
+      if (innerWidth >= 800) return;
+      const dt = time - lastTime;
+      lastTime = time;
+      
+      const s = root.current;
+      if (!s) return;
+      
+      autoP.current += dt * 0.00025; // 4 seconds per slide
+      if (autoP.current > SCENES.length - 1) autoP.current = 0;
+      
+      const p = autoP.current;
+      s.querySelectorAll<HTMLElement>('[data-scene]').forEach((el, i) => { 
+        const vis = 1 - smooth(0.25, 0.75, Math.abs(p - i)); 
+        el.style.opacity = String(vis); 
+        el.style.transform = `scale(${1 + (1 - vis) * 0.04})`; 
+      });
+      s.querySelectorAll<HTMLElement>('[data-scene-dot] > span').forEach((el, i) => { 
+        el.style.width = clamp01(p - i + 1) * 100 + '%'; 
+      });
+    };
+    frame = requestAnimationFrame(loop);
+    return () => cancelAnimationFrame(frame);
+  }, []);
+
   useScrollFrame(useCallback(() => {
     const s = root.current; if (!s) return;
-    const vh = innerHeight, r = s.getBoundingClientRect(), n = SCENES.length;
-    const p = clamp01((vh * 0.55 - r.top) / (r.height - vh * 0.6)) * (n - 1);
-    s.querySelectorAll<HTMLElement>('[data-scene]').forEach((el, i) => { const vis = 1 - smooth(0.25, 0.75, Math.abs(p - i)); el.style.opacity = String(vis); el.style.transform = `scale(${1 + (1 - vis) * 0.04})`; });
-    s.querySelectorAll<HTMLElement>('[data-step]').forEach((el, i) => { const vis = 1 - smooth(0.3, 0.8, Math.abs(p - i)); el.style.opacity = String(0.3 + 0.7 * vis); el.style.transform = `translateY(${(1 - vis) * 20}px)`; });
-    s.querySelectorAll<HTMLElement>('[data-scene-dot] > span').forEach((el, i) => { el.style.width = clamp01(p - i + 1) * 100 + '%'; });
+    if (innerWidth < 800) return;
+    
+    const steps = Array.from(s.querySelectorAll<HTMLElement>('[data-step]'));
+    if (!steps.length) return;
+    
+    const vh = innerHeight;
+    const triggerY = vh * 0.55;
+    
+    const r0 = steps[0].getBoundingClientRect();
+    const rLast = steps[steps.length - 1].getBoundingClientRect();
+    
+    const startY = r0.top + r0.height * 0.5;
+    const endY = rLast.top + rLast.height * 0.5;
+    
+    let p = 0;
+    if (startY >= triggerY) {
+      p = 0;
+    } else if (endY <= triggerY) {
+      p = steps.length - 1;
+    } else {
+      p = ((triggerY - startY) / (endY - startY)) * (steps.length - 1);
+    }
+    
+    s.querySelectorAll<HTMLElement>('[data-scene]').forEach((el, i) => { 
+      const vis = 1 - smooth(0.25, 0.75, Math.abs(p - i)); 
+      el.style.opacity = String(vis); 
+      el.style.transform = `scale(${1 + (1 - vis) * 0.04})`; 
+    });
+    
+    steps.forEach((el, i) => { 
+      const vis = 1 - smooth(0.3, 0.8, Math.abs(p - i)); 
+      el.style.opacity = String(0.3 + 0.7 * vis); 
+      el.style.transform = `translateY(${(1 - vis) * 20}px)`; 
+    });
+    
+    s.querySelectorAll<HTMLElement>('[data-scene-dot] > span').forEach((el, i) => { 
+      el.style.width = clamp01(p - i + 1) * 100 + '%'; 
+    });
   }, []));
 
   return (
