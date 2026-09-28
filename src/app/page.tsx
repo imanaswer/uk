@@ -1,6 +1,7 @@
 import Header from '@/components/Header';
 import Hero from '@/components/Hero';
 import Journey from '@/components/Journey';
+import StrategicCourses from '@/components/StrategicCourses';
 import Courses from '@/components/Courses';
 import Why from '@/components/Why';
 import Network from '@/components/Network';
@@ -16,6 +17,7 @@ export default function Page() {
       <main>
         <Hero />
         <Journey />
+        <StrategicCourses />
         <Courses />
         <Why />
         <Network />
