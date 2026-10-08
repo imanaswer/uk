@@ -26,7 +26,7 @@ export const SITE = {
 };
 
 export const NAV: [string, string][] = [
-  ['/about', 'About'], ['#journey', 'Journey'], ['#courses', 'Courses'], ['#why', 'Why G-TEC'], ['#network', 'Network'], ['#stories', 'Stories'], ['#software', 'Software'], ['#contact', 'Contact'],
+  ['/about', 'About'], ['#journey', 'Journey'], ['#courses', 'Courses'], ['/programmes', 'Programmes'], ['#why', 'Why G-TEC'], ['#network', 'Network'], ['#stories', 'Stories'], ['#software', 'Software'], ['#contact', 'Contact'],
 ];
 
 export type Course = { slug: string; cat: string; title: string; desc: string; duration: string; level: string; img: string };

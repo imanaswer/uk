@@ -2,6 +2,7 @@ import Header from '@/components/Header';
 import Hero from '@/components/Hero';
 import Journey from '@/components/Journey';
 import Courses from '@/components/Courses';
+import Programmes from '@/components/Programmes';
 import Why from '@/components/Why';
 import Campus from '@/components/Campus';
 import Network from '@/components/Network';
@@ -19,6 +20,7 @@ export default function Page() {
         <Hero />
         <Journey />
         <Courses />
+        <Programmes />
         <Why />
         <Campus />
         <Network />
