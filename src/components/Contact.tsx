@@ -8,12 +8,12 @@ export default function Contact() {
         <address className="contact__card">
           <div className="kicker kicker--sm">Communication address</div>
           <div className="contact__org">{SITE.legalName}</div>
-          <div className="contact__addr">Office 718, Crown House Business Centre<br />North Circular Road<br />London NW10 7PN, United Kingdom</div>
+          <div className="contact__addr">Office 718, Crown House Business Centre<br />North Circular Road<br />London NW10 7PN, United Kingdom<br /><a href={SITE.phoneHref}>{SITE.phone}</a><br /><a href={`mailto:${SITE.email}`}>{SITE.email}</a></div>
         </address>
         <address className="contact__card">
           <div className="kicker kicker--sm">Registered address</div>
           <div className="contact__org">{SITE.legalName}</div>
-          <div className="contact__addr">{SITE.registered.street}<br />{SITE.registered.locality}<br />{SITE.registered.postalCode}, United Kingdom</div>
+          <div className="contact__addr">{SITE.registered.street}<br />{SITE.registered.locality}<br />{SITE.registered.postalCode}, United Kingdom<br /><a href={SITE.phoneHref}>{SITE.phone}</a><br /><a href={`mailto:${SITE.email}`}>{SITE.email}</a></div>
         </address>
         <address className="contact__card">
           <div className="kicker kicker--sm">Global headquarters</div>
