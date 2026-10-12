@@ -4,7 +4,7 @@ import Reveal from './Reveal';
 import { COUNTRIES, NETWORK_TILES } from '@/lib/content';
 import { useReducedMotion } from '@/lib/motion';
 
-const IDLE = 'Drag to rotate · hover a country';
+const IDLE = 'Drag to rotate · tap a country';
 
 export default function Network() {
   const host = useRef<HTMLDivElement>(null);
@@ -110,7 +110,7 @@ export default function Network() {
           <Reveal>
             <div className="kicker kicker--coral">Global network</div>
             <h2 className="h2">One certificate. Recognised on four continents.</h2>
-            <p className="lead lead--light">Every G-TEC certificate goes on one global register, so an employer anywhere can check it online. Hover over a country to find it on the globe.</p>
+            <p className="lead lead--light">Every G-TEC certificate goes on one global register, so an employer anywhere can check it online. Tap or hover over a country to find it on the globe.</p>
           </Reveal>
           <ul className="countries" onMouseLeave={() => { hover.current = ''; setLabel(IDLE); }}>
             {COUNTRIES.map(([n]) => (

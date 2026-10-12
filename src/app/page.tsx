@@ -1,13 +1,13 @@
 import Header from '@/components/Header';
 import Hero from '@/components/Hero';
-import About from '@/components/About';
 import Journey from '@/components/Journey';
-import StrategicCourses from '@/components/StrategicCourses';
 import Courses from '@/components/Courses';
+import Programmes from '@/components/Programmes';
 import Why from '@/components/Why';
 import Campus from '@/components/Campus';
 import Network from '@/components/Network';
 import Stories from '@/components/Stories';
+import Software from '@/components/Software';
 import Enquire from '@/components/Enquire';
 import Contact from '@/components/Contact';
 import Footer from '@/components/Footer';
@@ -18,14 +18,14 @@ export default function Page() {
       <Header />
       <main>
         <Hero />
-        <About more />
         <Journey />
-        <StrategicCourses />
         <Courses />
+        <Programmes />
         <Why />
         <Campus />
         <Network />
         <Stories />
+        <Software />
         <Enquire />
         <Contact />
       </main>

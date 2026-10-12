@@ -25,9 +25,10 @@ export default function Journey() {
       autoP.current += dt * 0.00025; // 4 seconds per slide
       if (autoP.current > SCENES.length - 1) autoP.current = 0;
       
-      const p = autoP.current;
+      // hold each slide ~3s, then swap in ~1s so captions don't sit on top of each other
+      const p = Math.floor(autoP.current) + smooth(0.75, 1, autoP.current % 1);
       s.querySelectorAll<HTMLElement>('[data-scene]').forEach((el, i) => { 
-        const vis = 1 - smooth(0.25, 0.75, Math.abs(p - i)); 
+        const vis = 1 - smooth(0.35, 0.65, Math.abs(p - i)); 
         el.style.opacity = String(vis); 
         el.style.transform = `scale(${1 + (1 - vis) * 0.04})`; 
       });

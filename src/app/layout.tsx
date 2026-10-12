@@ -1,15 +1,15 @@
 import type { Metadata } from 'next';
 import type { ReactNode } from 'react';
-import { DM_Sans, Sora } from 'next/font/google';
+import { Inter, Plus_Jakarta_Sans } from 'next/font/google';
 import { COURSES, SITE } from '@/lib/content';
 import './globals.css';
 import SmoothScroll from '@/components/SmoothScroll';
 
-const sora = Sora({ subsets: ['latin'], weight: ['400', '500', '600', '700', '800'], variable: '--font-sora', display: 'swap' });
-const dmSans = DM_Sans({ subsets: ['latin'], weight: ['400', '500', '600', '700'], variable: '--font-dm-sans', display: 'swap' });
+const display = Plus_Jakarta_Sans({ subsets: ['latin'], weight: ['400', '500', '600', '700', '800'], variable: '--font-display', display: 'swap' });
+const body = Inter({ subsets: ['latin'], variable: '--font-body', display: 'swap' });
 
 const title = 'G-TEC EDUCATION UK · IT & professional training in London';
-const description = 'Part of a global training network spanning 23+ countries, 800+ centres and 4.3M+ alumni. 180-hour programmes in AI, cyber security, full stack development and data science in Park Royal, London.';
+const description = 'Part of a global training network spanning 23+ countries, 800+ centres and 4.3M+ alumni. Courses in generative AI, machine learning, data science, cyber security and full-stack development in Park Royal, London.';
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE.url),
@@ -38,7 +38,7 @@ const jsonLd = {
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
-    <html lang="en-GB" className={`${sora.variable} ${dmSans.variable}`}>
+    <html lang="en-GB" className={`${display.variable} ${body.variable}`}>
       <body>
         <SmoothScroll />
         {children}

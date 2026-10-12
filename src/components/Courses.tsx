@@ -11,10 +11,12 @@ gsap.registerPlugin(ScrollTrigger);
 
 export default function Courses() {
   const [cat, setCat] = useState('All');
+  const [all, setAll] = useState(false);
   const grid = useRef<HTMLDivElement>(null);
   const rm = useReducedMotion();
   const first = useRef(true);
-  const list = COURSES.filter((c) => cat === 'All' || c.cat === cat);
+  const matches = COURSES.filter((c) => cat === 'All' || c.cat === cat);
+  const list = all ? matches : matches.slice(0, 3);
 
   useEffect(() => {
     const cards = grid.current?.querySelectorAll('.card'); if (!cards?.length) return;
@@ -24,7 +26,7 @@ export default function Courses() {
     const tw = first.current ? gsap.to(cards, { ...opts, scrollTrigger: { trigger: grid.current, start: 'top 82%' } }) : gsap.to(cards, opts);
     first.current = false;
     return () => { tw.scrollTrigger?.kill(); tw.kill(); };
-  }, [cat, rm]);
+  }, [cat, all, rm]);
 
   const tilt = (e: MouseEvent<HTMLElement>) => {
     if (rm) return; const el = e.currentTarget, r = el.getBoundingClientRect();
@@ -44,10 +46,10 @@ export default function Courses() {
           <div className="section-head__copy">
             <div className="kicker kicker--coral">Professional courses</div>
             <h2 className="h2" style={{ color: '#fff' }}>Explore our professional courses.</h2>
-            <p className="lead lead--light">Build your future with industry-recognised programmes designed to prepare you for today&apos;s most in-demand careers. Every course runs for 180 hours.</p>
+            <p className="lead lead--light">Build your future with industry-recognised programmes designed to prepare you for today&apos;s most in-demand careers. Generative AI, machine learning, data, cyber security and full-stack development.</p>
           </div>
           <div className="cats" role="tablist" aria-label="Filter courses">
-            {CATS.map((c) => <button key={c} role="tab" aria-selected={c === cat} className={c === cat ? 'is-active' : ''} onClick={() => setCat(c)}>{c}</button>)}
+            {CATS.map((c) => <button key={c} role="tab" aria-selected={c === cat} className={c === cat ? 'is-active' : ''} onClick={() => { setCat(c); setAll(false); }}>{c}</button>)}
           </div>
         </Reveal>
         <div ref={grid} className="course-grid">
@@ -60,13 +62,21 @@ export default function Courses() {
               </div>
               <p className="card__desc">{c.desc}</p>
               <div className="card__meta"><span>{c.duration}</span><span>{c.level}</span></div>
-              <a href="#enquire" className="card__link" onClick={() => dispatchEvent(new CustomEvent('pick-course', { detail: c.title }))}>
-                Enquire about this course <span aria-hidden>→</span>
-              </a>
+              <div className="card__links">
+                <a href={`/courses/${c.slug}`} className="card__link">View course details <span aria-hidden>→</span></a>
+                <a href="#enquire" className="card__enq" onClick={() => dispatchEvent(new CustomEvent('pick-course', { detail: c.title }))}>Enquire</a>
+              </div>
               <div className="card__glare" aria-hidden />
             </article>
           ))}
         </div>
+        {matches.length > 3 && (
+          <div className="courses__more">
+            <button type="button" className="btn btn--glass" aria-expanded={all} onClick={() => { if (all) grid.current?.scrollIntoView({ block: 'start' }); setAll(!all); }}>
+              {all ? 'Show fewer courses' : `View all ${matches.length} courses`}
+            </button>
+          </div>
+        )}
       </div>
     </section>
   );

@@ -1,10 +1,6 @@
 import type { Metadata } from 'next';
 import Header from '@/components/Header';
 import About from '@/components/About';
-import Why from '@/components/Why';
-import Network from '@/components/Network';
-import Enquire from '@/components/Enquire';
-import Contact from '@/components/Contact';
 import Footer from '@/components/Footer';
 import Reveal from '@/components/Reveal';
 import { NETWORK_TILES, SITE } from '@/lib/content';
@@ -31,10 +27,6 @@ export default function AboutPage() {
           </Reveal>
         </section>
         <About />
-        <Why />
-        <Network />
-        <Enquire />
-        <Contact />
       </main>
       <Footer />
     </div>

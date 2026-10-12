@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import { ArrowUpRight, BadgeCheck, Handshake, MapPin, UserRound } from 'lucide-react';
+import { BadgeCheck, Handshake, MapPin, UserRound } from 'lucide-react';
 import Reveal from './Reveal';
 import { SITE } from '@/lib/content';
 
@@ -9,7 +9,7 @@ const POINTS = [
   { icon: Handshake, title: 'Universities and employers', desc: 'University collaborations and strategic corporate alliances behind every course.' },
 ];
 
-export default function About({ more = false }: { more?: boolean }) {
+export default function About() {
   return (
     <section id="about" className="wrap about">
       <Reveal className="about__grid">
@@ -44,7 +44,6 @@ export default function About({ more = false }: { more?: boolean }) {
               </li>
             ))}
           </ul>
-          {more && <a href="/about" className="btn btn--outline btn--sm about__more">More about us <ArrowUpRight size={16} /></a>}
         </div>
       </Reveal>
     </section>

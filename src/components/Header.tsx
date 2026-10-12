@@ -8,6 +8,7 @@ import { useMagnet, useReducedMotion, useScrollFrame } from '@/lib/motion';
 
 export default function Header() {
   const [scrolled, setScrolled] = useState(false);
+  const [raised, setRaised] = useState(false);
   const [active, setActive] = useState('');
   const [open, setOpen] = useState(false);
   const progress = useRef<HTMLDivElement>(null);
@@ -18,7 +19,9 @@ export default function Header() {
   useScrollFrame(useCallback(() => {
     const y = scrollY, vh = innerHeight, doc = document.documentElement.scrollHeight - vh;
     if (progress.current) progress.current.style.width = (doc > 0 ? (y / doc) * 100 : 0).toFixed(2) + '%';
-    setScrolled(y > 24);
+    const intro = document.querySelector('main > :first-child');
+    setScrolled(intro ? intro.getBoundingClientRect().bottom <= 80 : y > 24);
+    setRaised(y > 24);
     let a = '';
     for (const [href] of NAV) { if (!href.startsWith('#')) continue; const el = document.querySelector(href); if (el && el.getBoundingClientRect().top <= vh * 0.45) a = href; }
     setActive(a);
@@ -31,10 +34,10 @@ export default function Header() {
   return (
     <>
       <div ref={progress} className="progress" aria-hidden />
-      <header className={`header${scrolled ? ' is-scrolled' : ''}`}>
+      <header className={`header${scrolled ? ' is-scrolled' : raised ? ' is-raised' : ''}`}>
         <div className="wrap header__bar">
           <a href="/#top" className="brand" aria-label="G-TEC EDUCATION UK, back to top">
-            <Image src="/logo-mark.png" alt="G-TEC EDUCATION" width={79} height={48} className="brand__logo" style={{ width: "auto", height: 48 }} priority />
+            <Image src={scrolled ? "/logo-mark.png" : "/logo-mark-light.png"} alt="G-TEC EDUCATION" width={79} height={48} className="brand__logo" style={{ width: "auto", height: 48 }} priority />
             <span className="brand__region"><span className="brand__dot" aria-hidden />United Kingdom</span>
           </a>
           <nav className="nav" aria-label="Primary">{links}</nav>

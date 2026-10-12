@@ -5,9 +5,9 @@ import { COURSES } from '@/lib/content';
 
 const STEPS = ['Choose a programme', 'Share your details', 'Consultant callback'];
 
-export default function Enquire() {
+export default function Enquire({ initialCourse = '' }: { initialCourse?: string }) {
   const [step, setStep] = useState(0);
-  const [course, setCourse] = useState('');
+  const [course, setCourse] = useState(initialCourse);
   const [error, setError] = useState('');
   const [busy, setBusy] = useState(false);
   const [firstName, setFirstName] = useState('there');
@@ -52,6 +52,7 @@ export default function Enquire() {
                 <legend className="enquiry__title">Which programme interests you?</legend>
                 <div className="enquiry__sub">Pick one to continue.</div>
                 <div className="course-options" role="radiogroup">
+                  {course && !COURSES.some((c) => c.title === course) && <button type="button" role="radio" aria-checked className="is-active">{course}</button>}
                   {COURSES.map((c) => <button type="button" key={c.slug} role="radio" aria-checked={course === c.title} className={course === c.title ? 'is-active' : ''} onClick={() => setCourse(c.title)}>{c.title}</button>)}
                 </div>
                 <button type="button" className="btn btn--primary enquiry__next" disabled={!course} onClick={() => setStep(1)}>Continue →</button>

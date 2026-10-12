@@ -54,7 +54,6 @@ export default function Hero() {
       <div className="hero__shade" style={{ background: 'radial-gradient(circle at center, rgba(0,34,79,0) 0%, rgba(0,34,79,0.95) 100%)', zIndex: 1, pointerEvents: 'none' }} />
       
       <div ref={content} className="wrap hero__content" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center', maxWidth: '1000px', zIndex: 10 }}>
-        <div className="hero__badge"><span className="hero__new">NEW</span><span className="badge-text">Now in London · Wembley and Harrow</span></div>
         
         <h1 className="hero__title" ref={titleRef}>
           <span className="char-reveal" style={{ display: 'inline-block' }}>The</span>{' '}
@@ -65,7 +64,7 @@ export default function Hero() {
           <span className="char-reveal" style={{ display: 'inline-block' }}>network,</span>{' '}
           <span className="char-reveal" style={{ display: 'inline-block' }}>now</span>{' '}
           <span className="char-reveal" style={{ display: 'inline-block' }}>training</span>{' '}
-          <span className="hero__word char-reveal" style={{ display: 'inline-block' }}><span key={word}>{WORDS[word]}</span></span>
+          <span className="hero__word char-reveal">{WORDS.map((w, i) => <span key={i === word ? `${w}-on` : w} className={i === word ? 'is-on' : undefined} aria-hidden={i !== word}>{w}</span>)}</span>
         </h1>
         
         <p className="hero__lead" ref={subtitleRef} style={{ fontSize: 'clamp(18px, 2vw, 24px)', maxWidth: '700px', margin: '2rem auto', color: 'rgba(255,255,255,0.9)' }}>

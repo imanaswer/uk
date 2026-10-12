@@ -16,9 +16,14 @@ export default function Contact() {
           <div className="contact__addr">{SITE.registered.street}<br />{SITE.registered.locality}<br />{SITE.registered.postalCode}, United Kingdom<br /><a href={SITE.phoneHref}>{SITE.phone}</a><br /><a href={`mailto:${SITE.email}`}>{SITE.email}</a></div>
         </address>
         <address className="contact__card">
-          <div className="kicker kicker--sm">Global headquarters</div>
+          <div className="kicker kicker--sm">Administrative office</div>
           <div className="contact__org">{SITE.hq.name}</div>
           <div className="contact__addr">{SITE.hq.street}<br />{SITE.hq.locality}<br />{SITE.hq.phones.map((p) => <span key={p}><a href={`tel:${p.replace(/ /g, '')}`}>{p}</a><br /></span>)}<a href={`mailto:${SITE.hq.email}`}>{SITE.hq.email}</a></div>
+        </address>
+        <address className="contact__card">
+          <div className="kicker kicker--sm">Middle East office</div>
+          <div className="contact__org">{SITE.me.name}</div>
+          <div className="contact__addr">{SITE.me.street}<br />{SITE.me.locality}<br />{SITE.me.phones.map((p) => <span key={p}><a href={`tel:${p.replace(/ /g, '')}`}>{p}</a><br /></span>)}</div>
         </address>
         <div className="contact__card contact__card--navy">
           <div className="kicker kicker--coral kicker--sm">Reach us</div>
